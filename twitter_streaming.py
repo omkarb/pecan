@@ -9,7 +9,7 @@ import json
 import pandas as pd
 import twitter_api_data
 
-# Variables that contains the user credentials to access Twitter API
+# User credentials to access Twitter API
 access_token = twitter_api_data.access_token
 access_token_secret = twitter_api_data.access_token_secret
 consumer_key = twitter_api_data.consumer_key
@@ -22,7 +22,7 @@ def newTerm(str):
     key_term = str
 
 
-# This is a basic listener that just prints received tweets to stdout.
+# This is a basic listener that just prints received tweets to stdout. ft. Drake
 class StdOutListener(StreamListener):
     def on_status(self, status):
         body = status.text
@@ -30,23 +30,22 @@ class StdOutListener(StreamListener):
         print(tweets_data)
 
     def on_error(self, status_code):
-        print(status_code)
+        print("Error:", status_code)
 
 
-# Connect to twitter stream
+# Connect to Twitter Stream
 def twitter_connection():
     try:
         auth = OAuthHandler(consumer_key, consumer_secret)
         auth.set_access_token(access_token, access_token_secret)
-    except TweepError:
-        print("Error: ", TweepError)
-        raise SystemExit
-
+        return auth
+    except TweepError as err:
+        message = "Error: " + err
+        return message
 
 if __name__ == '__main__':
-    # This handles Twitter authentication and the connection to Twitter Streaming API
-    l = StdOutListener()
     auth = twitter_connection()
+    l = StdOutListener()
     stream = Stream(auth, l)
     # This line filters Twitter Streams to capture data by the desired keywords
     stream.filter(track=[key_term])

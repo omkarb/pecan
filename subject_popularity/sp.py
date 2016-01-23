@@ -27,5 +27,3 @@ def parse_insane(string):
     split = "[" + read_between(string, "[[", "]]") + "]"
     splitted = split.split("],[")
     return [parse_single(x) for x in splitted]
-
-print(lookup("Cat"))

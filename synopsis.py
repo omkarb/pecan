@@ -1,6 +1,7 @@
 import wikipedia
 
 
+
 # Search topic query
 def search_topic():
     topic = input("Enter conversation topic: ")
@@ -14,7 +15,7 @@ def wikipedia_summary(query):
 
 def main():
     topic = search_topic()
-    print(wikipedia_summary(topic))
+    print(wikipedia_summary(topic).substring())
 
 if __name__ == '__main__':
     main()

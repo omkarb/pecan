@@ -1,5 +1,4 @@
 import wolframalpha
-import re
 import bs4
 import requests
 
@@ -11,12 +10,23 @@ def wolframapi():
     APP_ID = f.readline()
     return APP_ID
 
+# Parse the suggested url given by xml
+def parseExamplePage(url):
+    website = requests.get(url)
 
-def cleanhtml(raw_html):
-    cleanr = re.compile('<.*?>')
-    cleantext = re.sub(cleanr,'', raw_html)
-    return cleantext
+    soup = bs4.BeautifulSoup(website.text, "html.parser")
 
+    # find all suggested actions
+    actions = soup.findAll("div", { "class" : "ex-caption" })
+
+    # find all suggested examples
+    examples = soup.findAll("span", { "class" : "content"})
+
+    for action in actions:
+        print action.text
+
+    for example in examples:
+        print example.text
 
 def main():
     # get the Wolfram API
@@ -32,27 +42,13 @@ def main():
     # When query is broad
     if (len(res.pods) == 0):
         suggested_url = res.tree.find('examplepage').get('url')
-        website = requests.get(suggested_url)
-        soup = bs4.BeautifulSoup(website.text, "html.parser")
+        parseExamplePage(suggested_url)
 
-        actions = soup.findAll("div", { "class" : "ex-caption" })
-        examples = soup.findAll("span", { "class" : "content"})
-
-        for action in actions:
-            print action.text
-
-        for example in examples:
-            print example.text
-
-    #new_res = client.query(split_uppercase(suggested_query))
-
-    #print  ET.tostring(res.tree.getroot())
-    # Print pods
     else:
         for pod in res.pods:
-            print(pod.title)
+            #print(pod.title)
             print(pod.text)
-            print('')
+
 
 if __name__ == '__main__':
     main()

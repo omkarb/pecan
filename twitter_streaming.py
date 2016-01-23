@@ -19,24 +19,30 @@ key_term = 'nba'
 def newTerm(str):
     key_term = str
 
+
 # This is a basic listener that just prints received tweets to stdout.
 class StdOutListener(StreamListener):
+    def on_status(self, status):
+        print(status.text)
 
-    def on_data(self, data):
-        return True
+    def on_error(self, status_code):
+        print(status_code)
+
 
 if __name__ == '__main__':
     # This handles Twitter authentication and the connection to Twitter Streaming API
     l = StdOutListener()
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
+    print("Connected to Twitter")
     stream = Stream(auth, l)
-
     # This line filters Twitter Streams to capture data by the desired keywords
     stream.filter(track=[key_term])
 
+
 # Read the tweet data into an array
 tweets_data_path = '../data/twitter_data.txt'
+
 
 # Takes the data from the .txt file and moves it into an array
 tweets_data = []
@@ -54,4 +60,5 @@ tweets = pd.DataFrame()
 tweets['text'] = map(lambda tweet: tweet['text'], tweets_data)
 
 
+print("Debug")
 print(tweets['text'])

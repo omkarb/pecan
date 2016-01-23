@@ -1,35 +1,55 @@
 # Twitter streaming code attributable to Adil Moujahid
 
-#Import the necessary methods from tweepy library
-from tweepy.streaming import StreamListener
+# Import the necessary methods from tweepy library
+from tweepy import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 
-#Variables that contains the user credentials to access Twitter API
-access_token = "4837759413-IV38kwcsAvn6BLTzFd6dEeAmR3ekrpjgsvXRMl9"
-access_token_secret = "z7q4rpWi0q2FlBx5jFiOoBqNSXdY2uCr1hkYwHuMtWGCd"
-consumer_key = "WA6bPuRDmKX59h7bSkV4ecPxl"
-consumer_secret = "C16BN5ibCnlZcYStqJBaVb48u9DZXS7f2oPNk9S7jj1vEjjVOI"
+# Libraries to actually collect tweet data
+import json
+import pandas as pd
+import twitter_api_data
 
+# Variables that contains the user credentials to access Twitter API
+access_token = twitter_api_data.access_token
+access_token_secret = twitter_api_data.access_token_secret
+consumer_key = twitter_api_data.consumer_key
+consumer_secret = twitter_api_data.consumer_secret
 
-#This is a basic listener that just prints received tweets to stdout.
+key_term = 'nba'
+
+def newTerm(str):
+    key_term = str
+
+# This is a basic listener that just prints received tweets to stdout.
 class StdOutListener(StreamListener):
 
     def on_data(self, data):
-        print(data)
         return True
 
-    def on_error(self, status):
-        print(status)
-
-
 if __name__ == '__main__':
-
-    # This handles Twitter authetification and the connection to Twitter Streaming API
+    # This handles Twitter authentication and the connection to Twitter Streaming API
     l = StdOutListener()
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
     stream = Stream(auth, l)
 
-    #This line filter Twitter Streams to capture data by the keywords: 'python', 'javascript', 'ruby'
-    stream.filter(track=['python', 'javascript', 'ruby'])
+    # This line filter Twitter Streams to capture data by the desired keywords
+    stream.filter(track=[key_term])
+
+# Read the tweet data into an array
+tweets_data_path = '../data/twitter_data.txt'
+
+tweets_data = []
+tweets_file = open(tweets_data_path, "r")
+for line in tweets_file:
+    try:
+        tweet = json.loads(line)
+        tweets_data.append(tweet)
+    except:
+        continue
+tweets = pd.DataFrame()
+tweets['text'] = map(lambda tweet: tweet['text'], tweets_data)
+
+
+print(tweets['text'])

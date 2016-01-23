@@ -31,8 +31,13 @@ def newTerm(str):
 class StdOutListener(StreamListener):
     def on_status(self, status):
         body = status.text
-        print(indicoio.sentiment_hq(body), body)
-        tweets_data.append(body)
+        count = 10
+
+        if count > 0:
+            print(indicoio.sentiment_hq(body))
+            count -= 1
+        else:
+            return
 
     def on_error(self, status_code):
         print("Error:", status_code)
@@ -62,4 +67,4 @@ tweets = pd.DataFrame()
 tweets['text'] = map(lambda tweet: tweet['text'], tweets_data)
 
 
-print(tweets['text'])
+# print(tweets['text'])

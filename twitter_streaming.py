@@ -5,18 +5,23 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 
 # Libraries to actually collect tweet data
-import json
 import pandas as pd
 import twitter_api_data
 
+# Sentiment Analysis lib
+import indicoio
+
 # User credentials to access Twitter API
+api_key = twitter_api_data.indico_key
 access_token = twitter_api_data.access_token
 access_token_secret = twitter_api_data.access_token_secret
 consumer_key = twitter_api_data.consumer_key
 consumer_secret = twitter_api_data.consumer_secret
 
 key_term = 'nba'
+indicoio.config.api_key = api_key
 tweets_data = []
+sent = indicoio.sentiment_hq
 
 def newTerm(str):
     key_term = str
@@ -26,8 +31,8 @@ def newTerm(str):
 class StdOutListener(StreamListener):
     def on_status(self, status):
         body = status.text
+        print(indicoio.sentiment_hq(body), body)
         tweets_data.append(body)
-        print(tweets_data)
 
     def on_error(self, status_code):
         print("Error:", status_code)
@@ -50,19 +55,6 @@ if __name__ == '__main__':
     # This line filters Twitter Streams to capture data by the desired keywords
     stream.filter(track=[key_term])
 
-
-# Read the tweet data into an array
-tweets_data_path = '../data/twitter_data.txt'
-
-
-# Takes the data from the .txt file and moves it into an array
-tweets_file = open(tweets_data_path, "r")
-for line in tweets_file:
-    try:
-        tweet = json.loads(line)
-        tweets_data.append(tweet)
-    except:
-        continue
 
 # Create an empty pandas dataFrame
 tweets = pd.DataFrame()

@@ -14,8 +14,8 @@ def returnSentiment(str):
         sentimentValues.append(indicoio.sentiment_hq(text))
 
     sentiment = sum(sentimentValues) / len(sentimentValues)
-    print(sentiment)
-    return
+
+    return str(sentiment)
 
 # print(indicoio.sentiment_hq('indico is so easy to use!'))
 

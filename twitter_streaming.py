@@ -1,5 +1,3 @@
-# Twitter streaming code attributable to Adil Moujahid
-
 # Import the necessary methods from tweepy library
 from tweepy import StreamListener
 from tweepy import OAuthHandler
@@ -34,12 +32,13 @@ if __name__ == '__main__':
     auth.set_access_token(access_token, access_token_secret)
     stream = Stream(auth, l)
 
-    # This line filter Twitter Streams to capture data by the desired keywords
+    # This line filters Twitter Streams to capture data by the desired keywords
     stream.filter(track=[key_term])
 
 # Read the tweet data into an array
 tweets_data_path = '../data/twitter_data.txt'
 
+# Takes the data from the .txt file and moves it into an array
 tweets_data = []
 tweets_file = open(tweets_data_path, "r")
 for line in tweets_file:
@@ -48,7 +47,10 @@ for line in tweets_file:
         tweets_data.append(tweet)
     except:
         continue
+
+# Create an empty pandas dataFrame
 tweets = pd.DataFrame()
+# Add the actual tweets to this dataframe, in its own column
 tweets['text'] = map(lambda tweet: tweet['text'], tweets_data)
 
 

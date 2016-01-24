@@ -39,6 +39,3 @@ def get_wol(wol):
     for x in lst[:4]: result += "<li>" + x + "</li>"
     result += "</ul>"
     return result
-
-
-print(handle_query("Kanye West"))

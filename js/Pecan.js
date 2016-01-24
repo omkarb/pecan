@@ -1,11 +1,43 @@
-﻿import twttr;
+﻿//	import twttr;
+
+$(function(){
 
 var topic = "nba";
 
-$(document).ready(function(){
+twttr.widgets.load();
 
-twttr.widgets.load()
+	  // Load the Visualization API and the piechart package.
+	  setTimeout(function(){google.load('visualization', '1', {'callback':'', 'packages':['corechart']})}, 2000);
 
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(drawChart);
+      var toDraw;
+      var title;
+      function setToDraw(dat, name) {
+          toDraw = dat;
+          title = name;
+      }
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Search Volume');
+        data.addRows('toDraw');
+
+        // Set chart options
+        var options = {'title':title,
+                       'width':800,
+                       'height':300};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
 
 /*
 Code from Twitter:
@@ -39,17 +71,16 @@ window.twttr = (function(d, s, id) {
 Twitter Code to dynamically create a timeline
 */
 
-window.twttr(this,topic,'691193942780571648')
-
+console.log(document.getElementById('twitter-timeline'));
 twttr.widgets.createTimeline(
   '691193942780571648',
   document.getElementById('twitter-timeline'),
   {
     width: '15%',
     height: '100%',
-    theme="dark",
+    theme: "dark",
     related: 'twitterdev,twitterapi'
   }).then(function (el) {
     console.log("Embedded a timeline.")
   });
-}
+});

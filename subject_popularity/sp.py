@@ -1,7 +1,7 @@
 import requests
 
 
-def lookup(key_word):
+def look_up(key_word):
     url = 'http://www.google.com/trends/fetchComponent?hl=en-US&q=' + key_word + \
           '&cid=TIMESERIES_GRAPH_0&export=5&w=500&h=300'
     try:

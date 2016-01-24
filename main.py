@@ -34,8 +34,10 @@ def get_tt(tt):
 
 def get_wol(wol):
     lst = wol.split("|")
-    lst = sorted(lst, lambda sentence: len(sentence))
+    lst = sorted(lst, key=lambda sentence: len(sentence))
     result = "<ul> "
     for x in lst[:4]: result += "<li>" + x + "</li>"
     result += "</ul>"
     return result
+
+print(get_wol(handle_query("Kanye")['wol']))

@@ -46,6 +46,3 @@ def main(query):
             if pod.text != None:
                 result += pod.text
         return result
-
-
-print(main("Kanye West"))

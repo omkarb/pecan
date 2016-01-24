@@ -14,6 +14,25 @@ from decimal import Decimal, ROUND_DOWN
 # Sentiment Analysis lib
 import indicoio
 
+# Allows for verification certificate
+import urllib3
+import certifi
+import warnings
+warnings.filterwarnings("ignore")
+
+https = urllib3.PoolManager(
+    cert_reqs='CERT_REQUIRED', # Force certificate check.
+    ca_certs=certifi.where(),  # Path to the Certifi bundle.
+)
+
+# You're ready to make verified HTTPS requests.
+try:
+    r = https.request('GET', 'https://api.twitter.com')
+except urllib3.exceptions.SSLError as e:
+    print()
+
+
+
 # User credentials to access Twitter API
 api_key = twitter_api_data.indico_key
 access_token = twitter_api_data.access_token
@@ -21,7 +40,7 @@ access_token_secret = twitter_api_data.access_token_secret
 consumer_key = twitter_api_data.consumer_key
 consumer_secret = twitter_api_data.consumer_secret
 
-key_term = 'sanders'
+key_term = 'nba'
 indicoio.config.api_key = api_key
 tweets_data = []
 sentiments = []
@@ -66,6 +85,8 @@ def main():
     stream = Stream(auth, l)
     # This line filters Twitter Streams to capture data by the desired keywords
     stream.filter(track=[key_term])
+
+
 
 if __name__ == '__main__':
     p = multiprocessing.Process(target=main, name="main")

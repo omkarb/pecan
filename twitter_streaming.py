@@ -12,7 +12,7 @@ from decimal import Decimal, ROUND_DOWN
 
 # Sentiment Analysis lib
 import indicoio
-
+import time
 # Allows for verification certificate
 import urllib3
 import certifi
@@ -81,9 +81,12 @@ def main(query):
     stream.filter(track=[query])
 
 
+
+
 def timed_process(query):
     t = threading.Thread(target=main, args=(query,))
     t.start()
     t.join(5)
+    print(t.is_alive())
     print(sentiment_value)
     return sentiment_value

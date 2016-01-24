@@ -16,12 +16,15 @@ def parseExamplePage(url):
 
     # find all suggested examples
     examples = soup.findAll("span", { "class" : "content"})
-    #
-    # for action in actions:
-    #     print(action.text)
-    #
-    # for example in examples:
-    #     print(example.text)
+    result = ""
+    for action in actions:
+        if action.text != None:
+            result += action.text
+
+    for example in examples:
+        if example.text != None:
+            result += example.text
+    return result
 
 
 def main(query):
@@ -35,11 +38,14 @@ def main(query):
     # When query is broad
     if len(res.pods) == 0:
         suggested_url = res.tree.find('examplepage').get('url')
-        parseExamplePage(suggested_url)
-    #
-    # else:
-    #     for pod in res.pods:
-    #         #print(pod.title)
-    #         print(pod.text)
+        return parseExamplePage(suggested_url)
+
+    else:
+        result = ""
+        for pod in res.pods:
+            if pod.text != None:
+                result += str(pod.text)
+        return result
 
 
+print(main("Kanye West"))

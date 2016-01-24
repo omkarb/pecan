@@ -77,7 +77,7 @@ def parse_with_queue(json_obj, key_word):
     return [x[1] for x in queue]
 
 
-def search_for(name: string, key=user_key, alt_url=ros_url):
+def search_for(name, key=user_key, alt_url=ros_url):
     f = open('out.txt', 'r')
     line = f.readline()
     while not (line == "" or line.split(",")[0] == name):

@@ -1,5 +1,4 @@
 # Import the necessary methods from tweepy library
-from functools import reduce
 from tweepy import StreamListener
 from tweepy import TweepError
 from tweepy import OAuthHandler
@@ -7,8 +6,8 @@ from tweepy import Stream
 
 # Libraries to actually collect tweet data
 import multiprocessing
-import twitter_api_data
-import time
+import api_key
+import threading
 from decimal import Decimal, ROUND_DOWN
 
 # Sentiment Analysis lib
@@ -31,17 +30,14 @@ try:
 except urllib3.exceptions.SSLError as e:
     print()
 
-
-
 # User credentials to access Twitter API
-api_key = twitter_api_data.indico_key
-access_token = twitter_api_data.access_token
-access_token_secret = twitter_api_data.access_token_secret
-consumer_key = twitter_api_data.consumer_key
-consumer_secret = twitter_api_data.consumer_secret
+access_token = api_key.token
+access_token_secret = api_key.token_secret
+consumer_key = api_key.consumer_key
+consumer_secret = api_key.consumer_secret
 
-key_term = 'nba'
-indicoio.config.api_key = api_key
+# key_term = 'nba'
+indicoio.config.api_key = api_key.indico_key
 tweets_data = []
 sentiments = []
 sent = indicoio.sentiment_hq
@@ -49,20 +45,18 @@ sent = indicoio.sentiment_hq
 # def newTerm(str):
 #     key_term = str
 
+sentiment_value = 0
 
 # This is a basic listener that just prints received tweets to stdout. ft. Drake
 class StdOutListener(StreamListener):
 
-
-
     def on_status(self, status):
+        global sentiment_value
         body = status.text
         s = indicoio.sentiment_hq(body)
         s = Decimal(s).quantize(Decimal('.0001'), rounding=ROUND_DOWN)
         sentiments.append(s)
-        print(sum(sentiments) / len(sentiments))
-
-
+        sentiment_value = (sum(sentiments) / len(sentiments))
 
     def on_error(self, status_code):
         print("Error:", status_code)
@@ -79,18 +73,17 @@ def twitter_connection():
         return message
 
 
-def main(key_term):
+def main(query):
     auth = twitter_connection()
     l = StdOutListener()
     stream = Stream(auth, l)
     # This line filters Twitter Streams to capture data by the desired keywords
-    stream.filter(track=[key_term])
+    stream.filter(track=[query])
 
 
-
-if __name__ == '__main__':
-    p = multiprocessing.Process(target=main, name="main")
-    p.start()
-    time.sleep(10)
-    p.terminate()
-    p.join()
+def timed_process(query):
+    t = threading.Thread(target=main, args=(query,))
+    t.start()
+    t.join(5)
+    print(sentiment_value)
+    return sentiment_value

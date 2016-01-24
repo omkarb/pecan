@@ -5,8 +5,9 @@ from tweepy import OAuthHandler
 from tweepy import Stream
 
 # Libraries to actually collect tweet data
-import pandas as pd
+import multiprocessing
 import twitter_api_data
+import time
 
 # Sentiment Analysis lib
 import indicoio
@@ -29,15 +30,11 @@ def newTerm(str):
 
 # This is a basic listener that just prints received tweets to stdout. ft. Drake
 class StdOutListener(StreamListener):
+
     def on_status(self, status):
         body = status.text
-        count = 10
 
-        if count > 0:
-            print(indicoio.sentiment_hq(body))
-            count -= 1
-        else:
-            return
+        print(indicoio.sentiment_hq(body))
 
     def on_error(self, status_code):
         print("Error:", status_code)
@@ -53,18 +50,18 @@ def twitter_connection():
         message = "Error: " + err
         return message
 
-if __name__ == '__main__':
+
+def main():
     auth = twitter_connection()
     l = StdOutListener()
     stream = Stream(auth, l)
     # This line filters Twitter Streams to capture data by the desired keywords
     stream.filter(track=[key_term])
 
+if __name__ == '__main__':
+    p = multiprocessing.Process(target=main, name="main")
+    p.start()
+    time.sleep(5)
+    p.terminate()
+    p.join()
 
-# Create an empty pandas dataFrame
-tweets = pd.DataFrame()
-# Add the actual tweets to this dataframe, in its own column
-tweets['text'] = map(lambda tweet: tweet['text'], tweets_data)
-
-
-# print(tweets['text'])

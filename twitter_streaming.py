@@ -46,8 +46,8 @@ tweets_data = []
 sentiments = []
 sent = indicoio.sentiment_hq
 
-def newTerm(str):
-    key_term = str
+# def newTerm(str):
+#     key_term = str
 
 
 # This is a basic listener that just prints received tweets to stdout. ft. Drake
@@ -79,7 +79,7 @@ def twitter_connection():
         return message
 
 
-def main():
+def main(key_term):
     auth = twitter_connection()
     l = StdOutListener()
     stream = Stream(auth, l)

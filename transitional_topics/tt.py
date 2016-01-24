@@ -2,6 +2,7 @@ import json
 import string
 import time
 import wikipedia
+import heapq
 import rosette.api
 
 from rosette.api import API, DocumentParameters, MorphologyOutput, NameMatchingParameters
@@ -45,7 +46,7 @@ def convert_file():
     f.close()
     f2.close()
 
-convert_file()
+#convert_file()
 
 def find_similar(key_word, key=user_key, altUrl=ros_url):
     api = API(user_key=key, service_url=altUrl)
@@ -58,31 +59,31 @@ def find_similar(key_word, key=user_key, altUrl=ros_url):
                                    indent=2, ensure_ascii=False))
     return search_for(json_obj['lemmas'][0]['lemma'])
 
-#print(find_similar("Bear down"))
 
-
-def search_for(name):
+def search_for(name: string):
     f = open('out.txt', 'r')
     line = f.readline()
     while not (line == "" or line.split(",")[0] == name):
         line = f.readline()
-    f.close()
     if line == "":
-        f.close()
-        f = open('out.txt', 'r')
+        f.seek(0)
         line = f.readline()
         while not (line == "" or name in line):
             line = f.readline()
-
         if line == "":
-            "No keyword found"
+            f.close()
+            return "No keyword found"
+
         else:
             line.replace(name, "")
+            f.close()
+            return line
     else:
+        f.close()
         line.replace(name, "");
         return line
 
-#print(find_similar("deep_sea"))
+#print(find_similar("down"))
 
 def proper_noun(key_word, key=user_key, altUrl=ros_url):
      api = API(user_key=key, service_url=altUrl)
@@ -99,9 +100,28 @@ def proper_key_words(key_word, key=user_key, altUrl=ros_url):
     api = API(user_key=key, service_url=altUrl)
 
     params = NameMatchingParameters()
-    i = 1
+    params['name1'] = key_word
+    max = ['error', 0]
     for x in wikipedia.search(key_word):
-        params["name" + str(i)] = {"text": x, "language": "eng"}
-    return json.loads(json.dumps(api.matched_name(params), indent=2, ensure_ascii=False))
+        params["name2"] = x
+        val = json.loads(json.dumps(api.matched_name(params), indent=2,
+                                    ensure_ascii=False))['result']['score'] > max[1]
+        if val > max[1]:
+            max = [x, val]
+    params = DocumentParameters()
+    params['content'] = wikipedia.summary(max[0])
+    json_obj = json.loads(json.dumps(api.entities(params), indent=2, ensure_ascii=False,
+                                 sort_keys=True))
+    queue = []
+    for x in json_obj['entities']:
+        if x['normalized'] in key_word:
+            continue
+        confidence = int(x['confidence'])
+        if len(queue) < 4:
+            heapq.heappush(queue, (confidence, x['normalized']))
+        elif queue[0][0] > confidence:
+            heapq.heappushpop(queue, (confidence, x['normalized']))
+    return [x[1] for x in queue]
 
-#print(str(proper_key_words("Barrack Obama")))
+
+print(str(proper_key_words("Barrack Obama")))

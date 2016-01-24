@@ -1,6 +1,11 @@
 import requests
 
 
+months = {0: "Jan", 1: "Feb", 2: "Mar", 3: "Apr", 4: "May",
+          5: "Jun", 6: "Jul", 7: "Aug", 8: "Sep", 9: "Oct",
+          10: "Nov", 11: "Dec"}
+
+
 def look_up(key_word):
     url = 'http://www.google.com/trends/fetchComponent?hl=en-US&q=' + key_word + \
           '&cid=TIMESERIES_GRAPH_0&export=5&w=500&h=300'
@@ -19,8 +24,11 @@ def read_between(strg, char1, char2):
 
 def parse_single(target_string):
     actual_target = target_string.split("},")
-    val = actual_target[1].split(",")[2]
-    return [read_between(actual_target[0], "(", ")"), val]
+    val = int(actual_target[1].split(",")[2])
+    first = read_between(actual_target[0], "(", ")").split(",")
+    year = first[0].strip(' ()')
+    month = months[int(first[1].strip())]
+    return month + " " + year, val
 
 
 def parse_insane(string):

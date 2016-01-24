@@ -17,9 +17,9 @@ def wikipedia_summary(query, key=user_key, alt_url=ros_url):
     api = API(user_key=key, service_url=alt_url)
 
     params = NameMatchingParameters()
-    params['name1'] = key_word
+    params['name1'] = query
     max = ['error', 0]
-    for x in wikipedia.search(key_word):
+    for x in wikipedia.search(query):
         params["name2"] = x
         val = json.loads(json.dumps(api.matched_name(params), indent=2,
                                     ensure_ascii=False))['result']['score'] > max[1]

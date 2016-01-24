@@ -3,6 +3,7 @@ import sp
 import synopsis
 import tt
 import twitter_streaming as ts
+from rosette.api import API,
 
 
 def handle_query(query):
@@ -32,9 +33,10 @@ def get_tt(tt):
     result += "</ul>"
     return result
 
+
 def get_wol(wol):
     lst = wol.split("|")
-    lst = sorted(lst, key=lambda sentence: len(sentence))
+    lst.sort(key=len, reverse=False)
     result = "<ul> "
     for x in lst[:4]: result += "<li>" + x + "</li>"
     result += "</ul>"

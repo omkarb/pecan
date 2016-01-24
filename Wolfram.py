@@ -44,7 +44,7 @@ def main(query):
         result = ""
         for pod in res.pods:
             if pod.text != None:
-                result += str(pod.text)
+                result += pod.text
         return result
 
 

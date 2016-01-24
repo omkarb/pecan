@@ -1,0 +1,41 @@
+﻿h1 {
+	
+	font-size: 130px;
+	text-align:center;
+	margin-top: 10%;
+	font-family: 'Abel', sans-serif;	
+}
+
+body {
+	
+	background-color: orange;
+}
+
+h4 {
+	font-family: 'Roboto Condensed', sans-serif;
+	text-align: center;
+	margin-top: 5%;
+}
+
+input {
+	
+	line-height: 2em;
+	font-family:'Quicksand', sans-serif;
+	font-size: 25px;
+	margin-top: -10px;
+}
+
+.form {
+	
+	text-align: center;
+	margin-top: 5%;
+	
+}
+
+input[type=submit] {
+	background:#ccc;
+	border:0 none;
+    cursor:pointer;
+    margin-top:10%;
+    }
+

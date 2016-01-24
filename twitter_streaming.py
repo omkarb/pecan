@@ -21,7 +21,7 @@ access_token_secret = twitter_api_data.access_token_secret
 consumer_key = twitter_api_data.consumer_key
 consumer_secret = twitter_api_data.consumer_secret
 
-key_term = 'nba'
+key_term = 'sanders'
 indicoio.config.api_key = api_key
 tweets_data = []
 sentiments = []
@@ -41,7 +41,8 @@ class StdOutListener(StreamListener):
         s = indicoio.sentiment_hq(body)
         s = Decimal(s).quantize(Decimal('.0001'), rounding=ROUND_DOWN)
         sentiments.append(s)
-        print reduce(lambda x, y: x + y, sentiments) / len(sentiments)
+        print(sum(sentiments) / len(sentiments))
+
 
 
     def on_error(self, status_code):

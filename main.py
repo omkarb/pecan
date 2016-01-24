@@ -42,4 +42,4 @@ def get_wol(wol):
     result += "</ul>"
     return result
 
-print(get_wol(handle_query("Kanye")['wol']))
+#print(get_wol(handle_query("Kanye")['wol']))

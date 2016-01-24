@@ -1,4 +1,5 @@
 # Import the necessary methods from tweepy library
+from functools import reduce
 from tweepy import StreamListener
 from tweepy import TweepError
 from tweepy import OAuthHandler
@@ -8,6 +9,7 @@ from tweepy import Stream
 import multiprocessing
 import twitter_api_data
 import time
+from decimal import Decimal, ROUND_DOWN
 
 # Sentiment Analysis lib
 import indicoio
@@ -22,6 +24,7 @@ consumer_secret = twitter_api_data.consumer_secret
 key_term = 'nba'
 indicoio.config.api_key = api_key
 tweets_data = []
+sentiments = []
 sent = indicoio.sentiment_hq
 
 def newTerm(str):
@@ -31,10 +34,15 @@ def newTerm(str):
 # This is a basic listener that just prints received tweets to stdout. ft. Drake
 class StdOutListener(StreamListener):
 
+
+
     def on_status(self, status):
         body = status.text
+        s = indicoio.sentiment_hq(body)
+        s = Decimal(s).quantize(Decimal('.0001'), rounding=ROUND_DOWN)
+        sentiments.append(s)
+        print reduce(lambda x, y: x + y, sentiments) / len(sentiments)
 
-        print(indicoio.sentiment_hq(body))
 
     def on_error(self, status_code):
         print("Error:", status_code)
@@ -61,7 +69,6 @@ def main():
 if __name__ == '__main__':
     p = multiprocessing.Process(target=main, name="main")
     p.start()
-    time.sleep(5)
+    time.sleep(10)
     p.terminate()
     p.join()
-

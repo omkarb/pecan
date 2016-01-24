@@ -28,7 +28,7 @@ def parse_single(target_string):
     first = read_between(actual_target[0], "(", ")").split(",")
     year = first[0].strip(' ()')
     month = months[int(first[1].strip())]
-    return month + " " + year, val
+    return [month + " " + year, val]
 
 
 def parse_insane(string):

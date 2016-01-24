@@ -44,5 +44,5 @@ def main(query):
         result = ""
         for pod in res.pods:
             if pod.text != None:
-                result += pod.text
+                result += str(pod.text.encode('ascii', 'ignore'))
         return result

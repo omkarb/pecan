@@ -3,12 +3,12 @@ import string
 import time
 import wikipedia
 import heapq
-import rosette.api
+import api_key
 
 from rosette.api import API, DocumentParameters, MorphologyOutput, NameMatchingParameters
 
-user_key = "7633a1fc4dab2a460ec878d2f42b1972"
-ros_url = 'https://api.rosette.com/rest/v1/'
+user_key = api_key.user_key
+ros_url = api_key.ros_url
 
 def run(input, key=user_key, altUrl=ros_url):
     api = API(user_key=key, service_url=altUrl)
@@ -83,7 +83,7 @@ def search_for(name: string):
         line.replace(name, "");
         return line
 
-#print(find_similar("down"))
+print(find_similar("deepsea"))
 
 def proper_noun(key_word, key=user_key, altUrl=ros_url):
      api = API(user_key=key, service_url=altUrl)
@@ -124,4 +124,4 @@ def proper_key_words(key_word, key=user_key, altUrl=ros_url):
     return [x[1] for x in queue]
 
 
-print(str(proper_key_words("Barrack Obama")))
+#print(str(proper_key_words("Barrack Obama")))

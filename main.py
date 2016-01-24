@@ -32,9 +32,10 @@ def get_tt(tt):
     result += "</ul>"
     return result
 
+
 def get_wol(wol):
     lst = wol.split("|")
-    lst = sorted(lst, lambda sentence: len(sentence))
+    lst.sort(key=len, reverse=False)
     result = "<ul> "
     for x in lst[:4]: result += "<li>" + x + "</li>"
     result += "</ul>"

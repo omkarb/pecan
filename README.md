@@ -1,3 +1,3 @@
 # pecan
 
-Personalized Conversational Tool to help people understand a topic better
+Personalized Conversational Tool to provide knowledge needed for a quality conversation

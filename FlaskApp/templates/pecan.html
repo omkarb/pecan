@@ -1,0 +1,28 @@
+<!doctype html>
+﻿<head>
+<title>Pecan</title>
+</head>
+
+<!-- Import Header Font from Google Fonts -->
+<link href='https://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Abel' rel='stylesheet' type='text/css'>
+
+<!-- CSS -->
+<link rel="stylesheet" href="{{url_for('static', filename='pecanCSS.css')}}"> 
+
+<body>
+
+<h1>Pecan</h1>
+
+<div class="form">
+
+	<form action="/search" method='POST'>
+		<input type="text" name="searchTerm" size="70">
+		<input type="image" value="Submit" src="{{ url_for('static', filename='img/pecan.png') }}" height="40" width="40">
+	</form>
+
+</div>
+
+<h4> &copy; Omkar Bhat, Ty Coghlan, Raj Narayan, Kevin Liu <br> Hack Beanpot 2016</h4>
+
+</body>

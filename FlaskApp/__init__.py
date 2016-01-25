@@ -1,6 +1,6 @@
 
 from flask import Flask, render_template, request, url_for
-from ..pecan import main as builder
+from API import main as builder
 
 app = Flask(__name__)
 

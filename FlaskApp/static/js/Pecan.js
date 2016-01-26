@@ -25,7 +25,7 @@ twttr.widgets.load();
 
         // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
+        data.addColumn('string', 'Date');
         data.addColumn('number', 'Search Volume');
         data.addRows('toDraw');
 

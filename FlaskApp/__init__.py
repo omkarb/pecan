@@ -17,7 +17,10 @@ def homepage():
 def search():
     query = request.form['searchTerm']
     dict = builder.handle_query(query)
-    return (builder.get_synopsis(dict['syn']) + builder.get_tt(dict['tt']) + builder.get_wol(dict['wol']))
+    syn = builder.get_synopsis(dict['syn'])
+    tt = builder.get_tt(dict['tt'])
+    wol = builder.get_wol(dict['wol'])
+    return render_template('results.html', syn=syn, tt=tt, wol=wol)
 
 
 if __name__ == "__main__":

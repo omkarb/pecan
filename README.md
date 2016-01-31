@@ -4,12 +4,11 @@
 
 http://pecansearch.me/
 
-A tool to provide knowledge needed for a quality conversation.
+_A tool to provide knowledge needed for a quality conversation._
 
 Build at Hack Beanpot 2016
 
-*** Winner of Best Use of Wolfram Technology! ***
-
+** Winner of Best Use of Wolfram Technology! **
 
 
 Utilized:

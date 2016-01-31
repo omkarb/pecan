@@ -28,14 +28,16 @@ def handle_query(query):
 
 
 def get_synopsis(syn):
-    return "<p>" + syn + "</syn>"
+    return syn
+    #return "<p>" + syn + "</syn>"
 
 
 def get_tt(tt):
-    result = "<ul> "
-    for x in tt: result += "<li>" + x + "</li>"
-    result += "</ul>"
-    return result
+    return tt
+    #result = "<ul> "
+    #for x in tt: result += "<li>" + x + "</li>"
+    #result += "</ul>"
+    #return result
 
 
 def get_wol(wol, key=user_key, alt_url=ros_url):

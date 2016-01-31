@@ -1,11 +1,12 @@
 
+Pillow
 tweepy
 wikipedia
 wolframalpha
-bs4
-indicoio
+beautifulsoup4
 flask
 requests
 rosette-api
 urllib3
 certifi
+indicoio

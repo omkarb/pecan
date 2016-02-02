@@ -1,4 +1,4 @@
-﻿h1 {
+h1 {
 
 	font-size: 130px;
 	text-align:center;
@@ -60,14 +60,3 @@ input[type=submit] {
 	height: 100%;
 	width: 100%;	
 }
-
-/* code relating to pecanData */
-
-.twitter-timeline {
-	
-	height: 100%;
-	width: 15%;
-	data-chrome: transparent;
-	
-}
-

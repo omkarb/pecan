@@ -1,6 +1,6 @@
-<!-- Links to Bootstrap File -->
+<!-- Links to Bootstrap File & h1 font -->
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
-
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
 <!DOCTYPE html>
 
@@ -10,7 +10,7 @@
 
 <body>
 
-    <h1> {{ searchTerm }}</h1>
+    <h1 class="center"> {{ searchTerm }}</h1>
 
     <div class="container">
         <div class="row">

@@ -20,7 +20,7 @@ def search():
     syn = builder.get_synopsis(dict['syn'])
     tt = builder.get_tt(dict['tt'])
     wol = builder.get_wol(dict['wol'])
-    return render_template('results.html', syn=syn, tt=tt, wol=wol)
+    return render_template('results.html', searchTerm=query, syn=syn, tt=tt, wol=wol)
 
 
 if __name__ == "__main__":

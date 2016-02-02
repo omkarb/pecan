@@ -3,32 +3,50 @@
 
 
 <!DOCTYPE html>
+
 <head>
-<title>Pecan</title>
+    <title>Pecan</title>
 </head>
 
 <body>
-<div class="container">
-    <div class="synopsis">
-	<p>
-	{{ syn }}
-	</p>
-    </div>
-    <div class="key-facts">
-	{{ wol }}
-    </div>
-    <div class="transitional-topics">
-	{{ tt }}
-    </div>
-</div>
 
-<div class="twitter-wrapper">
-   <a class="twitter-timeline" id="twitter-timeline" data-widget-id="691171097753075712" width="15%" height="100%" data-chrome="noheader"> Tweets</a>
-   
-</div>
-<div class="char-wrapper">
+    <h1> {{ Search Term }}</h1>
 
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+
+                <div class="twitter-wrapper">
+                    <a class="twitter-timeline" id="twitter-timeline" data-widget-id="691171097753075712" width="15%" height="100%" data-chrome="noheader"> Tweets</a>
+                </div>
+
+                <div class="col-sm-5">
+
+                    <div class="synopsis">
+                        <p>
+                            {{ syn }}
+                        </p>
+                    </div>
+                    <div class="key-facts">
+                        {{ wol }}
+                    </div>
+
+                </div>
+                <div class="col-sm-5">
+
+                    <div class="transitional-topics">
+                        {{ tt }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
 </body>
 
 <!--Load the Twitter API-->

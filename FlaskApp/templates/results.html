@@ -1,21 +1,17 @@
-<!-- Style Tab for background, due to Bootstrap issue -->
-   <style>
-    body {
-        background-color: coral;
-    }
-</style>
-
+<!DOCTYPE html>
+<head>
 <!-- Links to Bootstrap File & fonts -->
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
 <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
 
-<!DOCTYPE html>
-
-<head>
-    <title>Pecan</title>
+<title>Pecan</title>
 </head>
-
+<style>
+  body {
+    background-color: coral;
+  }
+</style>
 <body>
 
     <h1 class="center"> {{ searchTerm }}</h1>

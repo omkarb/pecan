@@ -57,3 +57,4 @@ def get_wol(wol, key=user_key, alt_url=ros_url):
     for x in lst: result += "<li>" + x + "</li>"
     result += "</ul>"
     return result
+

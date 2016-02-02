@@ -1,6 +1,14 @@
-<!-- Links to Bootstrap File & h1 font -->
+<!-- Style Tab for background, due to Bootstrap issue -->
+   <style>
+    body {
+        background-color: coral;
+    }
+</style>
+
+<!-- Links to Bootstrap File & fonts -->
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
 <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
 
 <!DOCTYPE html>
 
@@ -20,35 +28,35 @@
                     <a class="twitter-timeline" id="twitter-timeline" data-widget-id="691171097753075712" width="15%" height="100%" data-chrome="noheader"> Tweets</a>
                 </div>
             </div>
-               
-                <div class="col-sm-5">
-                    <!-- Synopsis Card -->
-                    <div class="synopsis">
-                        <div class="card-block">
-                            <h4 class="card-title">Synopsis</h4>
-                            <p class="card-text"> {{ syn }} </p>
-                        </div>
-                    </div>
 
-                    <!-- Key Facts Card -->
-                    <div class="key-facts">
-                        <div class="card-block">
-                            <h4 class="card-title">Key Facts</h4> {{ wol }}
-                        </div>
+            <div class="col-sm-5">
+                <!-- Synopsis Card -->
+                <div class="synopsis">
+                    <div class="card-block">
+                        <h4 class="card-title">Synopsis</h4>
+                        <p class="card-text"> {{ syn }} </p>
                     </div>
-
                 </div>
 
-                <div class="col-sm-5">
-
-                    <!-- Transitional Topics Card -->
-                    <div class="transitional-topics">
-                        <div class="card-block">
-                            <h4 class="card-title">Transitional Topics</h4> {{ tt }}
-                        </div>
+                <!-- Key Facts Card -->
+                <div class="key-facts">
+                    <div class="card-block">
+                        <h4 class="card-title">Key Facts</h4> {{ wol }}
                     </div>
-
                 </div>
+
+            </div>
+
+            <div class="col-sm-5">
+
+                <!-- Transitional Topics Card -->
+                <div class="transitional-topics">
+                    <div class="card-block">
+                        <h4 class="card-title">Transitional Topics</h4> {{ tt }}
+                    </div>
+                </div>
+
+            </div>
 
         </div>
 

@@ -19,6 +19,10 @@
     text-align: center;
 }
 
+.card-block {
+    font-family: 'Titillium Web', sans-serif;
+}
+
 
 /* Bootstrap CSS */
 html {
